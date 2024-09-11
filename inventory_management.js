@@ -52,5 +52,18 @@ inventory.forEach(product => { // Iterate over each product
 });
 }
 
+// Task 5 - Create a Function to Calculate Total Inventory Value
 
+function calculateInventoryValue () {
+    let totalValue = 0; // Initialize a variable to keep track of the total value
+
+
+    inventory.forEach(product => {
+        const productValue = product.price * product.quantity; // Calculate the value of the current product by multiplying its price by its quantity
+
+        totalValue += productValue; // Add the value of the current product to the total value
+    });
+
+    return totalValue;
+}
  
