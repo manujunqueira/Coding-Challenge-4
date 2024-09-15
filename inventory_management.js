@@ -2,11 +2,11 @@
 
 
 const inventory = [
-    { name: 'Laptop', price: 1200, quantity: 10, lowStockLevel: 3 },
-    { name: 'Smartphone', price: 800, quantity: 5, lowStockLevel: 2 },
-    { name: 'Tablet', price: 400, quantity: 7, lowStockLevel: 1 },
-    { name: 'Headphones', price: 100, quantity: 15, lowStockLevel: 5 },
-    { name: 'Smartwatch', price: 250, quantity: 3, lowStockLevel: 1 }
+    { name: 'Stapler', price: 10, quantity: 27, lowStockLevel: 5 },
+    { name: 'Pen', price: 5, quantity: 100, lowStockLevel: 15 },
+    { name: 'Glue', price: 6, quantity: 33, lowStockLevel: 7 },
+    { name: 'Sticky Notes', price: 15, quantity: 25, lowStockLevel: 25 },
+    { name: 'Scissors', price: 20, quantity: 49, lowStockLevel: 9 }
 ]; //Sample Data for Inventory Initialization
 
 // Task 2 - Create a Function to Display Product Details
@@ -46,7 +46,7 @@ function updateStock (product, unitsSold) { // Check if the unitsSold exceeds th
 function checkLowStock () { // Function to check for low stock products in the inventory
 console.log(`Low Stock Products:`); //header message to indicate the beginning of the low report
 inventory.forEach(product => { // Iterate over each product
-    if (product.quantity <= lowStockLevel) {  // Check if the product's quantity is less than or equal to its lowStockLevel
+    if (product.quantity <= product.lowStockLevel) {  // Check if the product's quantity is less than or equal to its lowStockLevel
         console.log(`${product.name} is low in stock.`); // If true, log the product's name and indicate that it is low on stock
     }
 });
@@ -72,13 +72,32 @@ function calculateInventoryValue () {
 
 function processSale (productName, unitsSold) {
 
-    const product = inventory.find(item.name === productName); // Find the product in the inventory array by its name
+    const product = inventory.find(item => item.name === productName); // Find the product in the inventory array by its name
 
     if (product) { // Check if the product was found
-
         updateStock(product, unitsSold); //If yes, call updateStock to reduce the quantity
     } 
     else {
         console.log(`Error: Product ${product.name} not found in inventory.`); // if not, log an error message
     }
 }
+
+// Test Calls
+console.log("----- Display Product Details -----");
+displayProductDetails(inventory[0]); // Display details of the first product (stapler)
+
+console.log("\n----- Process a Sale (Stapler) -----");
+processSale('Stapler', 4); // Process sale of 4 Staplers
+
+console.log("\n----- Check Low Stock -----");
+checkLowStock(); // Check for products that are low in stock
+
+console.log("\n----- Calculate Inventory Value -----");
+console.log(`Total Inventory Value: $${calculateInventoryValue()}`); // Calculate and log total inventory value
+
+console.log("\n----- Process a Sale (Laptop) -----");
+processSale('Stapler', 28); // Try to sell more staplers than available
+
+console.log("\n----- Display Product Details (After Sale) -----");
+displayProductDetails(inventory[0]); // Display updated details of stapler after sale
+
